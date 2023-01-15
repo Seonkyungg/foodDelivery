@@ -99,6 +99,8 @@ public class FoodCooking  {
     }
     public void start(){
     }
+    public void finish(){
+    }
 
     public static void updateStatus(Paid paid){
 

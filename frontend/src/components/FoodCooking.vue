@@ -41,7 +41,7 @@
                     @click="save"
                     v-else
             >
-                Finish
+                Save
             </v-btn>
             <v-btn
                     color="deep-purple lighten-2"
@@ -83,6 +83,14 @@
                     @click="start"
             >
                 Start
+            </v-btn>
+            <v-btn
+                    v-if="!editMode"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="finish"
+            >
+                Finish
             </v-btn>
         </v-card-actions>
 
@@ -246,6 +254,25 @@
                 try {
                     if(!this.offline) {
                         var temp = await axios.put(axios.fixUrl(this.value._links['start'].href))
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                } catch(e) {
+                    this.snackbar.status = true
+                    if(e.response && e.response.data.message) {
+                        this.snackbar.text = e.response.data.message
+                    } else {
+                        this.snackbar.text = e
+                    }
+                }
+            },
+            async finish() {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links['finish'].href))
                         for(var k in temp.data) {
                             this.value[k]=temp.data[k];
                         }
