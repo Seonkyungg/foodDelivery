@@ -95,7 +95,7 @@ public class FoodCooking  {
 
 
 
-    public void accept(){
+    public void accept(AcceptCommand acceptCommand){
     }
     public void start(){
     }
